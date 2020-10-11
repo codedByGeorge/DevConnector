@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -16,9 +20,9 @@ const Register = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== password2) {
-			console.log('Passwords do not match');
+			setAlert('Passwords do not match', 'danger');
 		} else {
-			console.log('SUCCESS');
+			register({ name, email, password });
 		}
 	};
 	const { name, email, password, password2 } = formData;
@@ -36,7 +40,7 @@ const Register = () => {
 						name="name"
 						value={name}
 						onChange={(e) => onChange(e)}
-						required
+						//required
 					/>
 				</div>
 				<div className="form-group">
@@ -46,7 +50,7 @@ const Register = () => {
 						value={email}
 						onChange={(e) => onChange(e)}
 						placeholder="Email"
-						required
+						//required
 					/>
 					<small className="form-text">
 						This site uses <a href="https://en.gravatar.com/">Gravatar</a>. If
@@ -61,7 +65,7 @@ const Register = () => {
 						value={password}
 						onChange={(e) => onChange(e)}
 						placeholder="Password"
-						minLength="6"
+						//minLength="6"
 					/>
 				</div>
 				<div className="form-group">
@@ -71,7 +75,7 @@ const Register = () => {
 						value={password2}
 						onChange={(e) => onChange(e)}
 						placeholder="Confirm Password"
-						minLength="6"
+						//minLength="6"
 					/>
 				</div>
 				<input
@@ -86,4 +90,10 @@ const Register = () => {
 		</Fragment>
 	);
 };
-export default Register;
+
+Register.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, register })(Register);
