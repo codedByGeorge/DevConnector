@@ -9,7 +9,7 @@ import Alert from './components/layout/Alert';
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
-import setAuthToken from '../src/utils/setAuthToken';
+import setAuthToken from './utils/setAuthToken';
 import './App.css';
 
 if(localStorage.token) {
@@ -17,9 +17,9 @@ if(localStorage.token) {
 }
 
 const App = () => {
-	useEffect(() => {
-		store.dispatch(loadUser());
-	}, []);
+	useEffect(() =>{
+		store.dispatch(loadUser())
+	}, [])
 	return (
 	<Provider store={store}>
 		<Router>
